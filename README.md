@@ -1,38 +1,41 @@
-# Mi Proyecto Automotriz - Evaluación Sumativa 1
+# Mi Proyecto Automotriz - Evaluación Sumativa 2
 
 ## Propósito y Proyección
-Este proyecto es un catálogo interactivo desarrollado en Django para un taller automotriz. Su propósito principal es organizar y mostrar los vehículos disponibles, además de los precios de los distintos servicios. Para futuras evaluaciones, planeo implementar un sistema de reservas de horas, autenticación de usuarios (mecánicos/clientes) y un panel administrativo.
+Este proyecto es una aplicación backend funcional desarrollada en Django, conectada a una base de datos PostgreSQL. Permite gestionar un catálogo automotriz utilizando operaciones CRUD, validaciones de seguridad y administración desde el panel de Django.
 
 ## Integrante
 * Benjamin Millalonco
 
-## Requisitos e Instalación
+## Requisitos e Instalación (Para el evaluador)
 1. Clonar el repositorio: `git clone https://github.com/hxcCoder/Evaluacion-sumativa-1.git`
 2. Entrar a la carpeta: `cd evaluacion-sumativa-1`
-3. Crear entorno virtual: `python -m venv .venv`
-4. Activar entorno virtual: 
-   * Windows: `.venv\Scripts\activate`
-   * Mac/Linux: `source .venv/bin/activate`
-5. Instalar dependencias: `pip install -r requirements.txt`
-6. Ejecutar servidor: `python manage.py runserver`
+3. Crear y activar entorno virtual:
+   * Windows: `python -m venv .venv` y luego `.venv\Scripts\activate`
+   * Mac/Linux: `python3 -m venv .venv` y luego `source .venv/bin/activate`
+4. Instalar dependencias: `pip install -r requirements.txt`
 
-## Estructura y Rutas del Proyecto
-El proyecto está dividido en 3 aplicaciones principales:
-* **core**: Contiene las rutas generales (`/inicio/`, `/contacto/`, `/servicios/`, `/perfil/<nombre_usuario>/`).
-* **Autos**: Contiene la ruta del inventario (`/autos/catalogo/`).
-* **Precios**: Contiene la ruta de valores (`/precios/lista/`).
+## Configuración de Base de Datos y Variables de Entorno
+1. Crear una base de datos vacía en PostgreSQL.
+2. Copiar el archivo `.env.example` y renombrarlo a `.env`.
+3. Abrir el archivo `.env` y completar los datos con las credenciales locales de su PostgreSQL:
+   ```env
+   SECRET_KEY=tu_secret_key
+   DEBUG=True
+   DB_NAME=tu_base_de_datos
+   DB_USER=tu_usuario
+   DB_PASSWORD=tu_password
+   DB_HOST=localhost
+   DB_PORT=5432
 
-## Desarrollo del Trabajo
-Al ser un proyecto individual, me encargué de realizar todas las etapas: configuración inicial del entorno, creación de las vistas y templates base en `core`, y la lógica de programación (uso de diccionarios, condicionales y bucles) para las aplicaciones `Autos` y `Precios`.
+   Aplicar las migraciones para crear las tablas: python manage.py migrate
 
-## Dificultades y Soluciones
-* **Dificultad**: Al principio tuve problemas para organizar las rutas, ya que las vistas de la aplicación `Precios` y `Autos` se mezclaban o chocaban con las rutas principales de `core`.
-* **Solución**: Aprendí a utilizar la función `include()` en el archivo principal `config/urls.py`. Esto me permitió delegar y separar las URLs, dándole a cada aplicación su propio archivo `urls.py` de forma más ordenada.
+1) Crear un superusuario para acceder al admin: python manage.py createsuperuser
 
-## Registro de uso de IA
-* **Problema inicial**: No tenía del todo claro cómo pasar una lista de diccionarios (los datos de los autos) desde el archivo `views.py` hacia el archivo HTML para mostrarlos en pantalla.
-* **Consulta**: Le pedí a la IA que me explicara cómo enviar esta lista de autos al template y cómo recorrerla usando un bucle en Django.
-* **Solución aplicada**: La IA me explicó que debía agrupar los datos en un diccionario llamado `contexto` al momento de hacer el `render`, y luego me mostró cómo usar la etiqueta `{% for auto in lista_autos %}` en el HTML. Lo apliqué en `Autos/views.py` y el catálogo renderizó correctamente.
+2) Ejecutar el servidor: python manage.py runserver
 
-## Conclusiones y Reflexión
-Con esta primera evaluación logré comprender en la práctica el flujo de trabajo de Django (URL -> Vista -> Template). El uso de IA fue una buena herramienta de apoyo para destrabar errores de sintaxis y recordar etiquetas específicas, pero de todas formas tuve que entender la lógica por mi cuenta para poder estructurar bien los archivos base (como el uso de `{% extends %}` y `{% block contenido %}`). Considero que el proyecto cumple con los requisitos base y queda con una buena estructura para seguir escalándolo en las próximas entregas.
+## Estructura del Proyecto
+- core: Contiene las rutas generales y vistas estáticas.
+
+- Autos: Implementa el CRUD de vehículos, con conexión a base de datos, validaciones y formularios web.
+
+- Precios: Contiene el listado estático de precios de servicios.
