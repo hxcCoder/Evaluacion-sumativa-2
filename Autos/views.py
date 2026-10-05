@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Auto
 from .forms import AutoForm
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializers import AutoSerializer
+
 
 # 1. Modificamos el catálogo para que lea de la Base de Datos real
 def catalogo(request):
@@ -38,3 +42,9 @@ def eliminar_auto(request, id):
         return redirect('catalogo_autos')
     return render(request, 'Autos/confirmar_eliminar.html', {'auto': auto})
     
+# Vista para la API
+@api_view(["GET"])
+def lista_autos_api(request):
+    autos = Auto.objects.all()
+    serializer = AutoSerializer(autos, many=True)
+    return Response(serializer.data)
