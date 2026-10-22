@@ -10,4 +10,4 @@ def lista_precios(request):
         'titulo': 'Lista de Precios',
         'lista_servicios': servicios_disponibles
     }
-    return render(request, 'Precios/lista.html', contexto)
+    return render(request, 'precios/lista.html', contexto)
