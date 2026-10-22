@@ -1,15 +1,45 @@
-# Entornos virtuales
-.venv/
-venv/
-env/
-
-# Base de datos local
-db.sqlite3
-
-# Archivos de caché de Python
+# =========================
+# Python
+# =========================
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
+*.pyc
 
-# Configuraciones de VS Code
+# =========================
+# Entornos Virtuales
+# =========================
+.venv/
+venv/
+env/
+ENV/
+
+# =========================
+# Variables de Entorno y Secretos
+# =========================
+.env
+.env.local
+*.pem
+
+# =========================
+# Django y Base de Datos
+# =========================
+db.sqlite3
+db.sqlite3-journal
+/media/
+/staticfiles/
+
+# =========================
+# Editores e IDEs
+# =========================
 .vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# Sistema Operativo
+# =========================
+.DS_Store
+Thumbs.db

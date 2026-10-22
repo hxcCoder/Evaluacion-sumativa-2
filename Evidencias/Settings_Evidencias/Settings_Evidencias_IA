@@ -1,0 +1,6 @@
+Problema inicial: Necesitábamos implementar el CRUD completo y proteger la API con JWT sin afectar las vistas web tradicionales en core.
+Prompt: ¿Cómo configuro las rutas PUT y DELETE en Django REST Framework utilizando vistas basadas en funciones y SimpleJWT?
+Respuesta recibida: La IA propuso el uso de @api_view con los métodos correspondientes y la inyección del decorador @permission_classes([IsAuthenticated]).
+Análisis del equipo: Adoptamos la lógica basada en funciones porque mantiene la consistencia con las vistas web del proyecto original en lugar de migrar a ViewSets.
+Verificación: Comprobamos a través de Postman que una petición POST a /api/autos/ sin el header 'Authorization: Bearer <token>' devuelve un error 401 Unauthorized, y al inyectarlo, crea el vehículo correctamente.
+Reflexión: Comprendimos la dualidad de los sistemas modernos donde la sesión web funciona independientemente del token de la API. El riesgo de depender de la IA es no entender qué vistas quedan abiertas al público.
