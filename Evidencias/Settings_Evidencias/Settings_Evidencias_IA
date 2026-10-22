@@ -1,6 +1,13 @@
-Problema inicial: Necesitábamos implementar el CRUD completo y proteger la API con JWT sin afectar las vistas web tradicionales en core.
-Prompt: ¿Cómo configuro las rutas PUT y DELETE en Django REST Framework utilizando vistas basadas en funciones y SimpleJWT?
-Respuesta recibida: La IA propuso el uso de @api_view con los métodos correspondientes y la inyección del decorador @permission_classes([IsAuthenticated]).
-Análisis del equipo: Adoptamos la lógica basada en funciones porque mantiene la consistencia con las vistas web del proyecto original en lugar de migrar a ViewSets.
-Verificación: Comprobamos a través de Postman que una petición POST a /api/autos/ sin el header 'Authorization: Bearer <token>' devuelve un error 401 Unauthorized, y al inyectarlo, crea el vehículo correctamente.
-Reflexión: Comprendimos la dualidad de los sistemas modernos donde la sesión web funciona independientemente del token de la API. El riesgo de depender de la IA es no entender qué vistas quedan abiertas al público.
+Problema inicial: Las rutas protegidas funcionaban cuando probábamos en el navegador, pero nos dimos cuenta de que Django estaba validando la sesión web (cookies del admin) en lugar de exigir estrictamente el token JWT en las peticiones de la API.
+
+Prompt: "Instalé djangorestframework-simplejwt y protegí mis vistas con @permission_classes([IsAuthenticated]). Sin embargo, la API parece no validar el token correctamente en Postman o usa la sesión del navegador. ¿Qué me falta configurar?"
+
+Respuesta recibida: La IA indicó que faltaba declarar la configuración global en settings.py. Nos entregó el bloque de código REST_FRAMEWORK con DEFAULT_AUTHENTICATION_CLASSES apuntando a JWTAuthentication, además de la configuración de tiempos de expiración en SIMPLE_JWT.
+
+Análisis del equipo: Comprendimos que no basta con proteger las vistas en views.py. El núcleo de Django debe ser instruido explícitamente para leer e interpretar el encabezado Authorization: Bearer interceptando la petición antes de que llegue a la vista.
+
+Verificación: Copiamos la configuración recomendada en config/settings.py. Luego, cerramos todas las sesiones del navegador, generamos un token nuevo en /api/token/ y enviamos una petición POST vía Postman con el token en los headers. El servidor respondió exitosamente con un estado HTTP 201 Created.
+
+Reflexión: Aprendimos sobre el riesgo de la "falsa sensación de seguridad". Probar APIs REST directamente en el navegador puede enmascarar errores de autenticación porque Django inyecta la cookie de sesión automáticamente. Para pruebas de JWT, es obligatorio usar clientes aislados como Postman.
+
+Captura:"Correcion_Settings.png", "Correcion_Settings2.png"

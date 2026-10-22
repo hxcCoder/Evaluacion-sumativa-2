@@ -39,3 +39,34 @@ Este proyecto es una aplicación backend funcional desarrollada en Django, conec
 - Autos: Implementa el CRUD de vehículos, con conexión a base de datos, validaciones y formularios web.
 
 - Precios: Contiene el listado estático de precios de servicios.
+
+---
+
+## Usuarios de Prueba para Evaluación (Sin contraseñas reales)
+
+Para probar los endpoints protegidos de la API REST mediante Postman o Insomnia:
+
+* **Usuario de prueba:** `admin_api` (o cualquier usuario creado con `createsuperuser`)
+* **Contraseña:** *(Definida localmente al ejecutar `createsuperuser`)*
+
+---
+
+## Estructura de Endpoints de la API REST
+
+### Autenticación JWT
+| Método | Ruta | Propósito | Protección |
+| :--- | :--- | :--- | :--- |
+| **POST** | `/api/token/` | Obtener tokens `access` y `refresh` | Pública |
+| **POST** | `/api/token/refresh/` | Renovar el token de acceso vencido | Pública |
+
+### Recurso Principal: Vehículos (`/api/autos/`)
+| Método | Ruta de referencia | Propósito | Protección |
+| :--- | :--- | :--- | :--- |
+| **GET** | `/api/autos/` | Listar todos los vehículos del catálogo | Pública |
+| **GET** | `/api/autos/<id>/` | Consultar el detalle de un vehículo específico | JWT Obligatorio |
+| **POST** | `/api/autos/` | Registrar un nuevo vehículo | JWT Obligatorio |
+| **PUT** | `/api/autos/<id>/` | Actualizar un vehículo existente | JWT Obligatorio |
+| **DELETE** | `/api/autos/<id>/` | Eliminar un vehículo del catálogo | JWT Obligatorio |
+
+> **Nota de Seguridad:** Las solicitudes protegidas requieren el envío del token de acceso en el encabezado HTTP de la petición:
+> `Authorization: Bearer <tu_access_token>`
