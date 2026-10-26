@@ -7,8 +7,8 @@ Este proyecto es una aplicación backend funcional desarrollada en Django, conec
 * Benjamin Millalonco
 
 ## Requisitos e Instalación (Para el evaluador)
-1. Clonar el repositorio: `git clone https://github.com/hxcCoder/Evaluacion-sumativa-1.git`
-2. Entrar a la carpeta: `cd evaluacion-sumativa-1`
+1. Clonar el repositorio: `git clone https://github.com/hxcCoder/Evaluacion-sumativa-3.git`
+2. Entrar a la carpeta: `cd evaluacion-sumativa-3`
 3. Crear y activar entorno virtual:
    * Windows: `python -m venv .venv` y luego `.venv\Scripts\activate`
    * Mac/Linux: `python3 -m venv .venv` y luego `source .venv/bin/activate`
